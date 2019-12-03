@@ -1,0 +1,317 @@
+Building datasets with seconds_samples = 1s
+Classifing with n_PCA = 2
+train_dataset shape: (9227, 18)
+train_dataset classes distribution: 70.94% RTP
+test_dataset shape: (5953, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 3
+train_dataset shape: (9227, 18)
+train_dataset classes distribution: 70.94% RTP
+test_dataset shape: (5953, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 4
+train_dataset shape: (9227, 18)
+train_dataset classes distribution: 70.94% RTP
+test_dataset shape: (5953, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 5
+train_dataset shape: (9227, 18)
+train_dataset classes distribution: 70.94% RTP
+test_dataset shape: (5953, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 6
+train_dataset shape: (9227, 18)
+train_dataset classes distribution: 70.94% RTP
+test_dataset shape: (5953, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 7
+train_dataset shape: (9227, 18)
+train_dataset classes distribution: 70.94% RTP
+test_dataset shape: (5953, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 8
+train_dataset shape: (9227, 18)
+train_dataset classes distribution: 70.94% RTP
+test_dataset shape: (5953, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 9
+train_dataset shape: (9227, 18)
+train_dataset classes distribution: 70.94% RTP
+test_dataset shape: (5953, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 10
+train_dataset shape: (9227, 18)
+train_dataset classes distribution: 70.94% RTP
+test_dataset shape: (5953, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 11
+train_dataset shape: (9227, 18)
+train_dataset classes distribution: 70.94% RTP
+test_dataset shape: (5953, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 12
+train_dataset shape: (9227, 18)
+train_dataset classes distribution: 70.94% RTP
+test_dataset shape: (5953, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 13
+train_dataset shape: (9227, 18)
+train_dataset classes distribution: 70.94% RTP
+test_dataset shape: (5953, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 14
+train_dataset shape: (9227, 18)
+train_dataset classes distribution: 70.94% RTP
+test_dataset shape: (5953, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Building datasets with seconds_samples = 2s
+Classifing with n_PCA = 2
+train_dataset shape: (5153, 18)
+train_dataset classes distribution: 63.96% RTP
+test_dataset shape: (3137, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 3
+train_dataset shape: (5153, 18)
+train_dataset classes distribution: 63.96% RTP
+test_dataset shape: (3137, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 4
+train_dataset shape: (5153, 18)
+train_dataset classes distribution: 63.96% RTP
+test_dataset shape: (3137, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 5
+train_dataset shape: (5153, 18)
+train_dataset classes distribution: 63.96% RTP
+test_dataset shape: (3137, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 6
+train_dataset shape: (5153, 18)
+train_dataset classes distribution: 63.96% RTP
+test_dataset shape: (3137, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 7
+train_dataset shape: (5153, 18)
+train_dataset classes distribution: 63.96% RTP
+test_dataset shape: (3137, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 8
+train_dataset shape: (5153, 18)
+train_dataset classes distribution: 63.96% RTP
+test_dataset shape: (3137, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 9
+train_dataset shape: (5153, 18)
+train_dataset classes distribution: 63.96% RTP
+test_dataset shape: (3137, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 10
+train_dataset shape: (5153, 18)
+train_dataset classes distribution: 63.96% RTP
+test_dataset shape: (3137, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 11
+train_dataset shape: (5153, 18)
+train_dataset classes distribution: 63.96% RTP
+test_dataset shape: (3137, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 12
+train_dataset shape: (5153, 18)
+train_dataset classes distribution: 63.96% RTP
+test_dataset shape: (3137, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 13
+train_dataset shape: (5153, 18)
+train_dataset classes distribution: 63.96% RTP
+test_dataset shape: (3137, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 14
+train_dataset shape: (5153, 18)
+train_dataset classes distribution: 63.96% RTP
+test_dataset shape: (3137, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Building datasets with seconds_samples = 3s
+Classifing with n_PCA = 2
+train_dataset shape: (3740, 18)
+train_dataset classes distribution: 59.47% RTP
+test_dataset shape: (2186, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 3
+train_dataset shape: (3740, 18)
+train_dataset classes distribution: 59.47% RTP
+test_dataset shape: (2186, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 4
+train_dataset shape: (3740, 18)
+train_dataset classes distribution: 59.47% RTP
+test_dataset shape: (2186, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 5
+train_dataset shape: (3740, 18)
+train_dataset classes distribution: 59.47% RTP
+test_dataset shape: (2186, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 6
+train_dataset shape: (3740, 18)
+train_dataset classes distribution: 59.47% RTP
+test_dataset shape: (2186, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 7
+train_dataset shape: (3740, 18)
+train_dataset classes distribution: 59.47% RTP
+test_dataset shape: (2186, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 8
+train_dataset shape: (3740, 18)
+train_dataset classes distribution: 59.47% RTP
+test_dataset shape: (2186, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 9
+train_dataset shape: (3740, 18)
+train_dataset classes distribution: 59.47% RTP
+test_dataset shape: (2186, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 10
+train_dataset shape: (3740, 18)
+train_dataset classes distribution: 59.47% RTP
+test_dataset shape: (2186, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 11
+train_dataset shape: (3740, 18)
+train_dataset classes distribution: 59.47% RTP
+test_dataset shape: (2186, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 12
+train_dataset shape: (3740, 18)
+train_dataset classes distribution: 59.47% RTP
+test_dataset shape: (2186, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 13
+train_dataset shape: (3740, 18)
+train_dataset classes distribution: 59.47% RTP
+test_dataset shape: (2186, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 14
+train_dataset shape: (3740, 18)
+train_dataset classes distribution: 59.47% RTP
+test_dataset shape: (2186, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Building datasets with seconds_samples = 4s
+Classifing with n_PCA = 2
+train_dataset shape: (2971, 18)
+train_dataset classes distribution: 56.21% RTP
+test_dataset shape: (1713, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 3
+train_dataset shape: (2971, 18)
+train_dataset classes distribution: 56.21% RTP
+test_dataset shape: (1713, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 4
+train_dataset shape: (2971, 18)
+train_dataset classes distribution: 56.21% RTP
+test_dataset shape: (1713, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 5
+train_dataset shape: (2971, 18)
+train_dataset classes distribution: 56.21% RTP
+test_dataset shape: (1713, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 6
+train_dataset shape: (2971, 18)
+train_dataset classes distribution: 56.21% RTP
+test_dataset shape: (1713, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 7
+train_dataset shape: (2971, 18)
+train_dataset classes distribution: 56.21% RTP
+test_dataset shape: (1713, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 8
+train_dataset shape: (2971, 18)
+train_dataset classes distribution: 56.21% RTP
+test_dataset shape: (1713, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 9
+train_dataset shape: (2971, 18)
+train_dataset classes distribution: 56.21% RTP
+test_dataset shape: (1713, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 10
+train_dataset shape: (2971, 18)
+train_dataset classes distribution: 56.21% RTP
+test_dataset shape: (1713, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 11
+train_dataset shape: (2971, 18)
+train_dataset classes distribution: 56.21% RTP
+test_dataset shape: (1713, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 12
+train_dataset shape: (2971, 18)
+train_dataset classes distribution: 56.21% RTP
+test_dataset shape: (1713, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 13
+train_dataset shape: (2971, 18)
+train_dataset classes distribution: 56.21% RTP
+test_dataset shape: (1713, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Classifing with n_PCA = 14
+train_dataset shape: (2971, 18)
+train_dataset classes distribution: 56.21% RTP
+test_dataset shape: (1713, 18)
+test_dataset classes distribution: 100.00% RTP
+
+Building datasets with seconds_samples = 5s
