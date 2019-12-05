@@ -51,7 +51,7 @@ def p75(x):
 
 #%%
 
-def main2(source_pcap):
+def main2(source_pcap, plot = None):
     
     print ("Processo %s" % source_pcap)
     LEN_DROP = 0
@@ -103,20 +103,23 @@ def main2(source_pcap):
     with open(pcap_path + "_info.txt", "w") as file:
         string = "Pacchetti droppati %s" % LEN_DROP
         file.write(string)
-    
+        
+    if plot:    
+        print ("Plot in %s" % pcap_path)
+        plot_stuff(pcap_path, dict_flow_data, df_unique_flow)
     return 
     
 if __name__ == "__main__":
 
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument ("-d", "--directory", help = "Master directory", required = True)
-    # parser.add_argument ("-j", "--join", help = "Join all .csv" , action='store_true')
-    # parser.add_argument ("-p", "--plot", help = "Plot info" , action='store_true')
-    # args = parser.parse_args()
-    # directory_p = args.directory
+    parser = argparse.ArgumentParser()
+    parser.add_argument ("-d", "--directory", help = "Master directory", required = True)
+    parser.add_argument ("-j", "--join", help = "Join all .csv" , action='store_true')
+    parser.add_argument ("-p", "--plot", help = "Plot info" , action='store_true')
+    args = parser.parse_args()
+    directory_p = args.directory
 
     #If you want to do by hand
-    directory_p = r'C:\Users\Gianl\Desktop\Catture_Meetings\Audio_Video_HD_2'
+    #directory_p = r'C:\Users\Gianl\Desktop\Catture_Meetings\Audio_Video_HD_2'
 
     pcap_app = []
     for r, d, f in os.walk(directory_p):
@@ -124,18 +127,18 @@ if __name__ == "__main__":
             if ('.pcap' in file or '.pcapng' in file):
                 pcap_app.append(os.path.join(r, file))
     print(pcap_app)
+    
     #For each .pcap in the folders, do the process
     for source_pcap in pcap_app:
         jobs = []
-        p = multiprocessing.Process(target=main2, args = (source_pcap,) )
+        p = multiprocessing.Process(target=main2, args = (source_pcap, args.plot,) )
         jobs.append(p)
         p.start()
-    
+        
     for process in jobs:
         process.join()
         
 #%%
     # if (args.join):
     #     merge_csv(directory_p)
-    # if (args.plot):
-    #     plot_stuff(pcap_path, dict_flow_data, df_unique_flow)
+  
