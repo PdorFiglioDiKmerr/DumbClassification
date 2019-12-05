@@ -9,14 +9,21 @@ def make_rtp_data(dict_flow_data):
     inter_rtp_timestamp_gap = {}
     
     for flow_id in dict_flow_data:
+        #If the index is already datetime
+        if isinstance(dict_flow_data[flow_id].index, pd.DatetimeIndex):
+            inner_df = dict_flow_data[flow_id].sort_index().reset_index()
+        else:
+            inner_df = dict_flow_data[flow_id].sort_values('timestamps')
         
-        inner_df = dict_flow_data[flow_id].sort_values('timestamps')
-        inter_packet_gap_s[flow_id] = (inner_df.timestamps.diff()).dropna()
-        inter_rtp_timestamp_gap[flow_id] = (inner_df.rtp_timestamp.diff()).dropna()
+        #Find the timestamps column (should be only one with datetime)
+#        timestamps_column = inner_df.select_dtypes(include=['datetime64']).iloc[:,0]
+        inter_packet_gap_s[flow_id] = inner_df['interarrival'].dropna()
+        inter_rtp_timestamp_gap[flow_id] = inner_df['rtp_interarrival'].dropna()
         
-        # Need to define an index in order to use resample method
+        # Need to define a datetime index to use resample
         datetime = pd.to_datetime(inner_df.timestamps, unit = 's')
         inner_df = inner_df.set_index(datetime)
+
         packets_per_second[flow_id] = inner_df.iloc[:,0].resample('S').count()
         kbps_series[flow_id] = inner_df['len_frame'].resample('S').sum()*8/1024
 
@@ -76,7 +83,7 @@ def plot_stuff(pcap_path, dict_flow_df, df_unique):
     #Plot Packets per second in time
     t = 'Packets per second'
     fig, ax = plt.subplots(figsize = (16,12))
-    for rtp_flow in dict_flow_df.keys():
+    for rtp_flow in sorted(dict_flow_df.keys()):
         if rtp_flow[1].startswith('192.'):
             packets_per_second[rtp_flow].plot(lw = 3, label = rtp_flow, ax=ax)
         else:
@@ -87,11 +94,10 @@ def plot_stuff(pcap_path, dict_flow_df, df_unique):
     plt.tight_layout()
     save_photo(pcap_path, t)
     
-    
     #Plot Bitrate in time
     t = 'Bitrate in kbps'
     plt.figure(figsize = (18,12))
-    for rtp_flow in dict_flow_df.keys():
+    for rtp_flow in sorted(dict_flow_df.keys()):
         if rtp_flow[1].startswith('192.'):
             kbps_series[rtp_flow].plot(lw = 3, label = rtp_flow)
         else:
