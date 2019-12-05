@@ -119,7 +119,7 @@ if __name__ == "__main__":
     directory_p = args.directory
 
     #If you want to do by hand
-    #directory_p = r'C:\Users\Gianl\Desktop\Catture_Meetings\Audio_Video_HD_2'
+    # directory_p = r'C:\Users\Gianl\Desktop\Catture_Meetings\Audio_Video_HD_2'
 
     pcap_app = []
     for r, d, f in os.walk(directory_p):
