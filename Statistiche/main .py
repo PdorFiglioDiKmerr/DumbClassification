@@ -60,7 +60,7 @@ if __name__ == "__main__":
     # directory_p = args.directory
 
     #If you want to do by hand
-    directory_p = r'C:\Users\Gianl\Desktop\Catture_Meetings\Audio_Video_HD_2'
+    directory_p = r'C:\Users\Gianl\Desktop\Catture_Meetings\BadVideo'
 
     pcap_app = []
     for r, d, f in os.walk(directory_p):
@@ -83,7 +83,7 @@ if __name__ == "__main__":
         if name +'.json' in element:
             with open(os.path.join(pcap_path, name+".json"), 'r') as f:
                 datastore = json.load(f)
-            dict_flow_data = labelling (dict_flow_data, datastore["audio"], datastore["video"],  datastore["ip"])
+            dict_flow_data = labelling (dict_flow_data, int(datastore["audio"]), int(datastore["video"]),  datastore["ip"])
         else:
             dict_flow_data = labelling (dict_flow_data)
                 

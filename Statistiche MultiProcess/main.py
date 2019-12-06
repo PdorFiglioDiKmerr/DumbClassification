@@ -52,7 +52,7 @@ def p75(x):
 #%%
 
 def main2(source_pcap, plot = None):
-    
+
     print ("Processo %s" % source_pcap)
     LEN_DROP = 0
     name = os.path.basename(source_pcap).split(".")[0]
@@ -67,7 +67,7 @@ def main2(source_pcap, plot = None):
     if name +'.json' in element:
         with open(os.path.join(pcap_path, name+".json"), 'r') as f:
             datastore = json.load(f)
-        dict_flow_data = labelling (dict_flow_data, datastore["audio"], datastore["video"],  datastore["ip"])
+        dict_flow_data = labelling (dict_flow_data, int(datastore["audio"]), int(datastore["video"]),  datastore["ip"])
     else:
         dict_flow_data = labelling (dict_flow_data)
 
@@ -103,12 +103,12 @@ def main2(source_pcap, plot = None):
     with open(pcap_path + "_info.txt", "w") as file:
         string = "Pacchetti droppati %s" % LEN_DROP
         file.write(string)
-        
-    if plot:    
+
+    if plot:
         print ("Plot in %s" % pcap_path)
         plot_stuff(pcap_path, dict_flow_data, df_unique_flow)
-    return 
-    
+    return
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
@@ -127,18 +127,17 @@ if __name__ == "__main__":
             if ('.pcap' in file or '.pcapng' in file):
                 pcap_app.append(os.path.join(r, file))
     print(pcap_app)
-    
+
     #For each .pcap in the folders, do the process
     for source_pcap in pcap_app:
         jobs = []
         p = multiprocessing.Process(target=main2, args = (source_pcap, args.plot,) )
         jobs.append(p)
         p.start()
-        
+
     for process in jobs:
         process.join()
-        
+
 #%%
     # if (args.join):
     #     merge_csv(directory_p)
-  

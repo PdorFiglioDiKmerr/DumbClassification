@@ -1,14 +1,14 @@
 import pandas as pd
 
 def audio_vs_fec(dict_flow_data, flow_id):
-    if (dict_flow_data[flow_id]["timestamps"] == 0).all():
+    if (dict_flow_data[flow_id]["rtp_timestamp"] == 0).all():
         dict_flow_data[flow_id]["label"] = 0 #FEC audio
     else:
         dict_flow_data[flow_id]["label"] =  1#audio
     return dict_flow_data[flow_id]
 
 def video_vs_fec(dict_flow_data, flow_id):
-    if (dict_flow_data[flow_id]["timestamps"] == 0).all():
+    if (dict_flow_data[flow_id]["rtp_timestamp"] == 0).all():
         dict_flow_data[flow_id]["label"] = 2 #FEC VIDEO
     else:
         dict_flow_data[flow_id]["label"] =  3#Video
@@ -26,9 +26,9 @@ def labelling (dict_flow_data, audio = None, video = None, ip = None, screen = N
     if ((audio is not None or video is not None) and ip is not None):
         for flow_id in dict_flow_data:
             print("hand-labeling")
-            if ( (audio and ip) in flow_id ):
+            if ( audio in flow_id and ip in flow_id ):
                 dict_flow_data[flow_id] = audio_vs_fec(dict_flow_data, flow_id)
-            elif ( (video and ip) in flow_id ):
+            elif ( video in flow_id and ip in flow_id ):
                 dict_flow_data[flow_id] = video_vs_fec(dict_flow_data, flow_id)
             elif (screen):
                 dict_flow_data[flow_id]["label"] = 4 #Screen Sharing
