@@ -28,11 +28,11 @@ def json_to_list(output):
         len_frame = int(obj['layers']['frame']['frame_frame_len'])
         rtp_timestamp = int(obj['layers']['rtp']['rtp_rtp_timestamp'])
         rtp_seq_num = int(obj['layers']['rtp']['rtp_rtp_seq'])
-
+        rtp_csrc = obj['layers']['rtp']['rtp_csrc_items_rtp_csrc_item']
         # Add new packet to dictionary
 #        columns = ['frame_num', 'p_type', 'len_udp', 'len_ip', 'len_frame', 'timestamps', 'rtp_timestamp', 'rtp_seq_num']
         data = [frame_num, p_type, len_udp, len_ip, len_frame,
-                timestamp, rtp_timestamp, rtp_seq_num]
+                timestamp, rtp_timestamp, rtp_seq_num, rtp_csrc]
 
         if unique_tuple in dictionary:
             dictionary[unique_tuple].append(data)
@@ -115,7 +115,7 @@ def json_to_list(output):
             l_other.append(obj)
 
     for x in unique_flow:
-        columns = ['frame_num', 'p_type', 'len_udp', 'len_ip', 'len_frame', 'timestamps', 'rtp_timestamp', 'rtp_seq_num']
+        columns = ['frame_num', 'p_type', 'len_udp', 'len_ip', 'len_frame', 'timestamps', 'rtp_timestamp', 'rtp_seq_num', 'rtp_csrc']
         dict_flow_data[x] = pd.DataFrame(dict_data[x], columns=columns)
         df_unique_flow = df_unique_flow.append({
                 'ssrc': x[0], 'source_addr': x[1],

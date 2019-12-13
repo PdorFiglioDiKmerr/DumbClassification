@@ -26,7 +26,6 @@ def make_rtp_data(dict_flow_data):
 
         packets_per_second[flow_id] = inner_df.iloc[:,0].resample('S').count()
         kbps_series[flow_id] = inner_df['len_frame'].resample('S').sum()*8/1024
-
     return packets_per_second, kbps_series, inter_packet_gap_s, inter_rtp_timestamp_gap
 
 
@@ -183,3 +182,13 @@ def plot_stuff(pcap_path, dict_flow_df, df_unique):
              plt.tight_layout()
              plt.grid(b=True)
              save_photo(pcap_path, t, tuple_to_string(rtp_flow))
+    
+    # for rtp_flow in dict_flow_df.keys():
+    #     plt.figure()
+    #     dict_flow_df[rtp_flow]["rtp_timestamp"].value_count().plot(kind = "bar")
+    #     t = ' RTP_occurences' + tuple_to_string(rtp_flow)
+    #     plt.title(t)
+    #     plt.xlabel('RTP timestamp equal')
+    #     plt.tight_layout()
+    #     plt.grid(b=True)
+    #     save_photo(pcap_path, t, tuple_to_string(rtp_flow))       
