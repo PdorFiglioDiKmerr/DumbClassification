@@ -144,5 +144,5 @@ if __name__ == "__main__":
         process.join()
 
 #%%
-    # if (args.join):
-    #     merge_csv(directory_p)
+    if (args.join):
+        merge_csv(directory_p)

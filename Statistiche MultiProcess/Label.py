@@ -47,6 +47,6 @@ def labelling (dict_flow_data, audio = None, video = None, ip = None, screen = N
 
 def labelling2 (dict_flow_data):
     for flow_id in dict_flow_data:
-        dict_flow_data[flow_id]["rtp_csrc"] = [bin(int(x, 16))[2:] for x in dict_flow_data[flow_id]["rtp_csrc"]]
-        dict_flow_data[flow_id]["label2"] = [1 if x[-1] == 1 else 0 for x in dict_flow_data[flow_id]["rtp_csrc"]]
+        dict_flow_data[flow_id]["rtp_csrc"] = [ str( bin(int(x, 16))[2:] ) for x in dict_flow_data[flow_id]["rtp_csrc"] ]
+        dict_flow_data[flow_id]["label2"] = [ 1 if x[-1] == str(1) else 0 for x in dict_flow_data[flow_id]["rtp_csrc"] ]
     return dict_flow_data
