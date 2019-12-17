@@ -28,7 +28,10 @@ def json_to_list(output):
         len_frame = int(obj['layers']['frame']['frame_frame_len'])
         rtp_timestamp = int(obj['layers']['rtp']['rtp_rtp_timestamp'])
         rtp_seq_num = int(obj['layers']['rtp']['rtp_rtp_seq'])
-        rtp_csrc = obj['layers']['rtp']['rtp_csrc_items_rtp_csrc_item']
+        try:
+            rtp_csrc = obj['layers']['rtp']['rtp_csrc_items_rtp_csrc_item']
+        except:
+            rtp_csrc = "fec"
         # Add new packet to dictionary
 #        columns = ['frame_num', 'p_type', 'len_udp', 'len_ip', 'len_frame', 'timestamps', 'rtp_timestamp', 'rtp_seq_num']
         data = [frame_num, p_type, len_udp, len_ip, len_frame,
@@ -54,7 +57,7 @@ def json_to_list(output):
     l_mdns = []
     l_dns = []
     l_other = []
-
+    l_error = []
     dict_data = {}
 
     #Find RTP flows
@@ -110,7 +113,8 @@ def json_to_list(output):
                     l_rtp.append(obj)
                     rtp_insert(obj, unique_flow, dict_flow_data, dict_data)
                 except:
-                    print(obj)
+                    l_error.append(obj)
+                    
         else:
             l_other.append(obj)
 
@@ -124,4 +128,4 @@ def json_to_list(output):
     #print("df_unique_flow shape: " + str(df_unique_flow.shape))
     #print("unique_flow shape: " + str(len(unique_flow)))
     #print("dictionaty shape: " + str(len(dict_flow_data)))
-    return dict_flow_data, df_unique_flow, l_rtp, l_non_rtp, l_stun, l_rtcp, l_turn, l_tcp, l_only_udp, unique_flow
+    return dict_flow_data, df_unique_flow, l_rtp, l_non_rtp, l_stun, l_rtcp, l_turn, l_tcp, l_only_udp, unique_flow, l_error

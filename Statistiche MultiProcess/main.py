@@ -68,7 +68,8 @@ def main2(source_pcap, plot = None):
     if name +'.json' in element:
         with open(os.path.join(pcap_path, name+".json"), 'r') as f:
             datastore = json.load(f)
-        dict_flow_data = labelling (dict_flow_data, int(datastore["audio"]), int(datastore["video"]),  datastore["ip"])
+        dict_flow_data = labelling (dict_flow_data, int(datastore.get("audio")), int(datastore.get("video")),  datastore.get("ip"), datastore.get("screen"), \
+                                    datastore.get("quality"))
         dict_flow_data = labelling2(dict_flow_data)
 
     else:
