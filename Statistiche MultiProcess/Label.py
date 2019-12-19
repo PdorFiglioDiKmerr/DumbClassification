@@ -32,11 +32,16 @@ def automate_classify (dict_flow_data, flow_id):
 
 def fec_audio_video(dict_flow_data, flow_id):
     
-    if dict_flow_data[flow_id]["len_udp"].mean() < 500:
-        dict_flow_data[flow_id]["label2"] =  4#FEC audio
-    else:
-        dict_flow_data[flow_id]["label2"] = 2 #FEC VIDEO 
-        
+    if not (any(dict_flow_data[flow_id]["rtp_csrc"].isin(["fec"]))):
+        dict_flow_data[flow_id]["rtp_csrc"] = [ str( bin(int(x, 16))[2:] ) for x in dict_flow_data[flow_id]["rtp_csrc"] ]
+        dict_flow_data[flow_id]["label2"] = [ 2 if x[-1] == str(1) else 4 for x in dict_flow_data[flow_id]["rtp_csrc"] ]
+    
+    else:     
+        if dict_flow_data[flow_id]["len_udp"].mean() < 500:
+            dict_flow_data[flow_id]["label2"] =  4#FEC audio
+        else:
+            dict_flow_data[flow_id]["label2"] = 2 #FEC VIDEO   
+    
     return dict_flow_data 
         
 def labelling (dict_flow_data, audio = None, video = None, ip = None, screen = None, quality = None):

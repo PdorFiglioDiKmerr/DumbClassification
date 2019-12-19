@@ -55,7 +55,7 @@ if __name__ == "__main__":
     # name filed: rtp_timestamp
   
     #If you want to do by hand
-    directory_p = r'C:\Users\Gianl\Desktop\Gianluca_wa_500KB.pcapng'
+    directory_p = r'C:\Users\Gianl\Desktop\Call_with_Chiara\low_quality\chiaralowquality.pcapng'
 
     source_pcap = directory_p # only for debug
     LEN_DROP = 0
@@ -72,7 +72,8 @@ if __name__ == "__main__":
     if name +'.json' in element:
         with open(os.path.join(pcap_path, name+".json"), 'r') as f:
             datastore = json.load(f)
-        dict_flow_data = labelling (dict_flow_data, datastore["audio"], datastore["video"],  datastore["ip"])
+        dict_flow_data = labelling (dict_flow_data, int(datastore.get("audio")), int(datastore.get("video")),  datastore.get("ip"), screen = datastore.get("screen"), \
+                                    quality= datastore.get("quality"))
         dict_flow_data = labelling2(dict_flow_data)
     else:
         dict_flow_data = labelling (dict_flow_data)
@@ -86,9 +87,8 @@ if __name__ == "__main__":
         dict_flow_data[flow_id].set_index('timestamps', inplace = True)
         dict_flow_data[flow_id] = dict_flow_data[flow_id].dropna()
         train = dict_flow_data[flow_id].resample('s').agg({'interarrival' : ['std', 'mean', p25, p50, p75], 'len_udp' : ['std', 'mean', 'count', kbps, p25, p50, p75], \
-            'interlength_udp' : ['mean', p25, p50, p75], 'rtp_interarrival' : ['std', 'mean', zeroes_count] ,"label": [value_label], "label2": [value_label]})
-        # train = dict_flow_data[flow_id].resample('s').agg({'interarrival' : ['std', 'mean'], 'len_udp' : ['std', 'mean', 'count', kbps ], \
-        #             'rtp_interarrival' : ['std', 'mean', zeroes_count], 'interlength_udp' : ['mean'], 'label' : [value_label] })
+            'interlength_udp' : ['mean', p25, p50, p75], 'rtp_interarrival' : ['std', 'mean', zeroes_count] ,\
+            "inter_time_sequence": ['std', 'mean', p25, p50, p75] ,"label": [value_label],  "label2": [value_label]})
         df_train = pd.concat([df_train, train])
     dataset_dropped = df_train.dropna()
     new_header = []
@@ -114,7 +114,7 @@ if __name__ == "__main__":
         file.write(string)
 #%%
     # if (args.join):
-    #     merge_csv(directory_p)
+         merge_csv(directory_p)
     # if (args.plot):
     #     plot_stuff(pcap_path, dict_flow_data, df_unique_flow)
 

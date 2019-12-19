@@ -59,7 +59,7 @@ def main2(source_pcap, plot = None):
     name = os.path.basename(source_pcap).split(".")[0]
     pcap_path = os.path.dirname(source_pcap)
     output = pcap_to_json(source_pcap)
-    dict_flow_data, df_unique_flow, l_rtp, l_non_rtp, l_stun, l_rtcp, l_turn, l_tcp, l_only_udp, unique_flow = \
+    dict_flow_data, df_unique_flow, l_rtp, l_non_rtp, l_stun, l_rtcp, l_turn, l_tcp, l_only_udp, unique_flow, l_err = \
         json_to_list(output)
     dict_flow_data, LEN_DROP = inter_statistic (dict_flow_data, LEN_DROP)
 
@@ -68,8 +68,8 @@ def main2(source_pcap, plot = None):
     if name +'.json' in element:
         with open(os.path.join(pcap_path, name+".json"), 'r') as f:
             datastore = json.load(f)
-        dict_flow_data = labelling (dict_flow_data, int(datastore.get("audio")), int(datastore.get("video")),  datastore.get("ip"), datastore.get("screen"), \
-                                    datastore.get("quality"))
+        dict_flow_data = labelling (dict_flow_data, int(datastore.get("audio")), int(datastore.get("video")),  datastore.get("ip"), screen = datastore.get("screen"), \
+                                    quality= datastore.get("quality"))
         dict_flow_data = labelling2(dict_flow_data)
 
     else:
@@ -83,7 +83,8 @@ def main2(source_pcap, plot = None):
         dict_flow_data[flow_id].set_index('timestamps', inplace = True)
         dict_flow_data[flow_id] = dict_flow_data[flow_id].dropna()
         train = dict_flow_data[flow_id].resample('s').agg({'interarrival' : ['std', 'mean', p25, p50, p75], 'len_udp' : ['std', 'mean', 'count', kbps, p25, p50, p75], \
-            'interlength_udp' : ['mean', p25, p50, p75], 'rtp_interarrival' : ['std', 'mean', zeroes_count] ,"label": [value_label],  "label2": [value_label] })
+            'interlength_udp' : ['mean', p25, p50, p75], 'rtp_interarrival' : ['std', 'mean', zeroes_count] ,\
+            "inter_time_sequence": ['std', 'mean', p25, p50, p75] ,"label": [value_label],  "label2": [value_label]})
         # train = dict_flow_data[flow_id].resample('s').agg({'interarrival' : ['std', 'mean'], 'len_udp' : ['std', 'mean', 'count', kbps ], \
         #             'rtp_interarrival' : ['std', 'mean', zeroes_count], 'interlength_udp' : ['mean'], 'label' : [value_label] })
         df_train = pd.concat([df_train, train])
@@ -125,7 +126,7 @@ if __name__ == "__main__":
     directory_p = args.directory
 
     #If you want to do by hand
-    # directory_p = r'C:\Users\Gianl\Desktop\Catture_Meetings\Audio_Video_HD_2'
+    #directory_p = r'C:\Users\Gianl\Desktop\Call_with_Chiara'
 
     pcap_app = []
     for r, d, f in os.walk(directory_p):
@@ -134,13 +135,14 @@ if __name__ == "__main__":
                 pcap_app.append(os.path.join(r, file))
     print(pcap_app)
 
+    jobs = []
     #For each .pcap in the folders, do the process
     for source_pcap in pcap_app:
-        jobs = []
         p = multiprocessing.Process(target=main2, args = (source_pcap, args.plot,) )
         jobs.append(p)
         p.start()
-
+    
+    print ("Numero processi avviati:" + str(len(jobs)))
     for process in jobs:
         process.join()
 
