@@ -54,6 +54,6 @@ def pcap_to_json(tuple_param): #source_pcap, used_port
     #print(dict_flow_data.keys())
     json2stat(dict_flow_data, pcap_path, name, screen = screen, quality = quality)
     if plot:
-        print ("Plot in %s" % pcap_path)
-        plot_stuff(pcap_path, dict_flow_data, df_unique_flow)
+        plot_path = os.path.join(pcap_path,name)
+        plot_stuff(plot_path, dict_flow_data, df_unique_flow)
     return
