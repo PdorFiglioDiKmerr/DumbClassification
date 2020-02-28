@@ -22,6 +22,8 @@ def video_vs_fec(dict_flow_data, flow_id, screen = None, quality = None):
     elif check_fec_equal(dict_flow_data,flow_id):
         dict_flow_data[flow_id]["label"] = 2 #FEC VIDEO RICEVUTO
         #print("FEC_same_video: {}".format(flow_id))
+    elif check_fec_equal_90(dict_flow_data,flow_id):
+        dict_flow_data[flow_id]["label"] = 2 
     elif (quality == "HQ"):
         dict_flow_data[flow_id]["label"] =  5#Video HQ 720p
     elif (quality == "LQ"): #standard quality
@@ -84,6 +86,16 @@ def check_fec_equal (dict_flow_data, flow_id):
         return ts_final.equals(sn)
     except Exception as e:
         return False
+    
+def check_fec_equal_90(dict_flow_data, flow_id):
+    try:
+        cost = pow(2,16)
+        ts = dict_flow_data[flow_id]["rtp_timestamp"]
+        sn = dict_flow_data[flow_id]["rtp_seq_num"].astype('float64')
+        ts_final = (ts/90)%cost
+        return ts_final.equals(sn)
+    except Exception as e:
+        return False
 
 def labelling2 (dict_flow_data, screen = None, quality = None):
     for flow_id in dict_flow_data:
@@ -95,6 +107,11 @@ def labelling2 (dict_flow_data, screen = None, quality = None):
             elif check_fec_equal(dict_flow_data,flow_id):
                 dict_flow_data[flow_id] = fec_audio_video_csrc(dict_flow_data, flow_id)
                 #print("L2_FEC_same: {}".format(flow_id))
+            elif check_fec_equal_90(dict_flow_data,flow_id):
+                try:
+                    dict_flow_data[flow_id] = fec_audio_video_csrc(dict_flow_data, flow_id)
+                except:
+                    dict_flow_data[flow_id] = fec_audio_video_euristic(dict_flow_data, flow_id)
             else:
                 dict_flow_data[flow_id]["label2"] = [ 1 if x[-1] == str(1) else 0 for x in dict_flow_data[flow_id]["rtp_csrc"] ]
                 #print("L2_class: {}".format(flow_id))
