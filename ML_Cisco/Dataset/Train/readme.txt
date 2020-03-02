@@ -1,0 +1,1 @@
+Sono utilizzate tutte le catture, dall'audio vengono estratti 20k campioni

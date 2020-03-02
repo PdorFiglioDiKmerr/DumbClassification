@@ -1,0 +1,5 @@
+dataset [39138,19] record
+
+train: [26222,19]
+
+test: [12916,19]
