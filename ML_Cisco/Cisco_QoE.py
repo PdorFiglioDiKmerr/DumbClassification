@@ -112,8 +112,8 @@ with open(filename, "wb") as f:
     pickle.dump(best_clf, f)
 
 with open("RF_parameters.txt", "w") as f:
-    f.write(str(grid_search.best_params_))
-    best_grid = grid_search.best_estimator_
+    f.write(str(best_clf.best_params_))
+    best_grid = best_clf.best_estimator_
     grid_accuracy = evaluate(best_grid, X_test,  y_test["label"])
     f.write("\nAccuracy on test:\n")
     f.write(str(grid_accuracy))
