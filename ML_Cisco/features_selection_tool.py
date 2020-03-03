@@ -111,27 +111,54 @@ plt.rcParams['figure.titlesize'] = 15
 
 from sklearn.naive_bayes import GaussianNB
 X_train, y_train, X_test, y_test = _Dataset()
-col_test = X_test.columns
-col_train = X_train.columns
-scaler = preprocessing.StandardScaler().fit(X_train)
-X_train = scaler.transform(X_train)
-X_test = scaler.transform(X_test)
-X_train = pd.DataFrame(X_train, columns = col_train)
-X_test = pd.DataFrame(X_test, columns = col_test)
 
-# generate dataset
-for i in range(10,20):
-    fs = SelectKBest(score_func=mutual_info_classif, k=i)
-    # apply feature selection
-    X_selected = fs.fit_transform(X_train, y_train["label"])
-    print(X_selected.shape)
+new_name_col = ['interarr_std', 'interarr_mean', 'interarr_p25',
+       'interarr_p50', 'interarr_p75', 'interarr_M_m_diff',
+       'len_udp_std', 'len_udp_mean', 'num_packets', 'kbps', 'len_udp_p25',
+       'len_udp_p50', 'len_udp_p75', 'len_udp_M_m_diff',
+       'interlen_udp_mean', 'interlen_udp_p25', 'interlen_udp_p50',
+       'interlen_udp_p75', 'interlen_udp_M_m_diff',
+       'rtp_inter_time_std', 'rtp_inter_time_mean',
+       'rtp_inter_time_n_zeros', 'rtp_interarr_M_m_diff',
+       'inter_time_seq_std', 'inter_time_seq_mean',
+       'inter_time_seq_p25', 'inter_time_seq_p50',
+       'inter_time_seq_p75', 'inter_time_seq_M_m_diff']
+
+col_test = new_name_col
+col_train = new_name_col
+X_train.columns = new_name_col
+X_test.columns = new_name_col
+
+X_train = X_train.drop(['rtp_inter_time_n_zeros','inter_time_seq_std', 'inter_time_seq_mean',
+        'inter_time_seq_p25', 'inter_time_seq_p50',
+        'inter_time_seq_p75', 'inter_time_seq_M_m_diff'], axis = 1)
+
+X_test = X_test.drop(['rtp_inter_time_n_zeros','inter_time_seq_std', 'inter_time_seq_mean',
+        'inter_time_seq_p25', 'inter_time_seq_p50',
+        'inter_time_seq_p75', 'inter_time_seq_M_m_diff'], axis = 1)
+new_name_col = X_train.columns
+col_test = new_name_col
+col_train = new_name_col
+
+#GAUSSIAN ANALYSIS
+# X_train = scaler.transform(X_train)
+# X_test = scaler.transform(X_test)
+# X_train = pd.DataFrame(X_train, columns = col_train)
+# X_test = pd.DataFrame(X_test, columns = col_test)
+
+# # generate dataset
+# for i in range(10,20):
+#     fs = SelectKBest(score_func=mutual_info_classif, k=i)
+#     # apply feature selection
+#     X_selected = fs.fit_transform(X_train, y_train["label"])
+#     print(X_selected.shape)
     
-    clf = GaussianNB()
-    clf.fit(X_selected, y_train["label"])
+#     clf = GaussianNB()
+#     clf.fit(X_selected, y_train["label"])
     
-    X_test_selected = fs.transform(X_test)
-    print(clf.score(X_test_selected, y_test["label"]))
-y_predict = clf.predict(X_test)
+#     X_test_selected = fs.transform(X_test)
+#     print(clf.score(X_test_selected, y_test["label"]))
+# y_predict = clf.predict(X_test)
 
 
 # estimator = RandomForestClassifier(n_estimators = 50, max_depth = 20, criterion="entropy",\
@@ -162,7 +189,6 @@ y_predict = clf.predict(X_test)
 
 
 #STANDARDIZE FEATUREES
-col_train = X_train.columns
 scaler = preprocessing.StandardScaler().fit(X_train)
 X_train_s = scaler.transform(X_train)
 X_test_s = scaler.transform(X_test)
@@ -172,12 +198,12 @@ X_test_s = pd.DataFrame(X_test_s, columns = col_train)
 
 #FEATURES SELECTION NO SCALE
 clf_ = Extra_(X_train, y_train["label"], save = True)
-X_train_select = X_train.loc[:, clf_.feature_importances_  > 0.03 ]
-X_test_select = X_test.loc[:, clf_.feature_importances_  > 0.03]
+X_train_select = X_train.loc[:, clf_.feature_importances_  > 0.05 ]
+X_test_select = X_test.loc[:, clf_.feature_importances_  > 0.05]
 
 #FEATURES SELECTION SCALE
-X_train_select_s = X_train_s.loc[:, clf_.feature_importances_  > 0.03 ]
-X_test_select_s = X_test_s.loc[:, clf_.feature_importances_  > 0.03]
+X_train_select_s = X_train_s.loc[:, clf_.feature_importances_  > 0.05 ]
+X_test_select_s = X_test_s.loc[:, clf_.feature_importances_  > 0.05]
 
 
 #PLOT CORRELATION NEW FEATURES
@@ -197,15 +223,15 @@ PCACisco.PCA_Plot_Variance(X_train_s)
 
 from sklearn.decomposition import PCA
 
-for i in [0.9, 0.95, 0.99]:
+# for i in [0.9, 0.95, 0.99]:
     
-    pca = PCA(n_components=i)
-    X_train_s_pca = pca.fit_transform(X_train_s)
-    X_test_s_pca = pca.transform(X_test_s)
-    n_comp = len(pca.singular_values_)
-    X_train_s_pca = pd.DataFrame(X_train_s_pca)
-    X_test_s_pca = pd.DataFrame(X_test_s_pca)
-    RandomF_(X_train_s_pca, y_train["label"], X_test_s_pca, y_test["label"],\
-             "PCA n_components " + str(n_comp), save = True) #complete dataset
+#     pca = PCA(n_components=i)
+#     X_train_s_pca = pca.fit_transform(X_train_s)
+#     X_test_s_pca = pca.transform(X_test_s)
+#     n_comp = len(pca.singular_values_)
+#     X_train_s_pca = pd.DataFrame(X_train_s_pca)
+#     X_test_s_pca = pd.DataFrame(X_test_s_pca)
+#     RandomF_(X_train_s_pca, y_train["label"], X_test_s_pca, y_test["label"],\
+#              "PCA n_components " + str(n_comp), save = True) #complete dataset
     
     

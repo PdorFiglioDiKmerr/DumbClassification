@@ -1,0 +1,7 @@
+Complete Dataset accuracy: 0.9830834894857381
+Complete Dataset standardaize accuracy: 0.9847491151363731
+Features selected accuracy: 0.9809494066208619
+Features selected standardize accuracy: 0.9826670830730794
+PCA n_components 7 accuracy: 0.8858005413283364
+PCA n_components 8 accuracy: 0.8885071830106184
+PCA n_components 12 accuracy: 0.9500832812825317

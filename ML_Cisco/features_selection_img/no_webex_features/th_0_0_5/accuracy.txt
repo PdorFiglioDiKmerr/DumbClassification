@@ -1,0 +1,4 @@
+Complete Dataset accuracy: 0.98245887986675
+Complete Dataset standardaize accuracy: 0.9828232354778264
+Features selected accuracy: 0.9781907141369978
+Features selected standardize accuracy: 0.9763689360816157
