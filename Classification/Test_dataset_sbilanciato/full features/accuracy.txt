@@ -1,4 +1,0 @@
-Full features:
-Accuracy SVM PCA 2 componenti su test: 0.9061153463705668
-Accuratezza Random Forest: 0.9950557949397857
-Accuratezza Decision Tree: 0.9976245718705116

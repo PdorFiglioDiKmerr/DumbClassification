@@ -40,13 +40,21 @@ plt.rcParams['ytick.labelsize'] = 20
 plt.rcParams['legend.fontsize'] = 20
 plt.rcParams['figure.titlesize'] = 15
 
-
+new_name_col = ['interarr_std', 'interarr_mean', 'interarr_p25',
+       'interarr_p50', 'interarr_p75', 'interarr_M_m_diff',
+       'len_udp_std', 'len_udp_mean', 'num_packets', 'kbps', 'len_udp_p25',
+       'len_udp_p50', 'len_udp_p75', 'len_udp_M_m_diff',
+       'interlen_udp_mean', 'interlen_udp_p25', 'interlen_udp_p50',
+       'interlen_udp_p75', 'interlen_udp_M_m_diff',
+       'rtp_inter_time_std', 'rtp_inter_time_mean',
+       'rtp_inter_time_n_zeros', 'rtp_interarr_M_m_diff',
+       'inter_time_seq_std', 'inter_time_seq_mean',
+       'inter_time_seq_p25', 'inter_time_seq_p50',
+       'inter_time_seq_p75', 'inter_time_seq_M_m_diff']
 #FEATURES OTTENUTE CON 0.03 DI TH 0.96X ACCURACY
-best_features = ['interarrival_p25', 'interarrival_p50', 'interarrival_p75',
-        'len_udp_std', 'len_udp_mean', 'num_packets', 'kbps', 'len_udp_p25',
-        'len_udp_p50', 'len_udp_p75', 'len_udp_max_min_diff',
-        'interlength_udp_max_min_diff', 'rtp_inter_timestamp_num_zeros',
-        'inter_time_sequence_std', 'inter_time_sequence_max_min_diff']
+best_features = ['interarr_p25', 'interarr_p50', 'interarr_p75', 'len_udp_std',
+       'len_udp_mean', 'num_packets', 'kbps', 'len_udp_p75',
+       'len_udp_M_m_diff', 'interlen_udp_M_m_diff', 'rtp_inter_time_mean']
 
 def evaluate(model, test_features, test_labels):
     predictions = model.predict(test_features)
@@ -65,7 +73,7 @@ def generate_clf_from_search(grid_or_random, clf, parameters, scorer, X, y):
     if grid_or_random == "Grid":
         search_obj = GridSearchCV(clf, parameters, scoring=scorer)
     elif grid_or_random == "Random":
-        search_obj = RandomizedSearchCV(clf, parameters, scoring=scorer, n_iter = 10000, random_state = 42, n_jobs = 47)
+        search_obj = RandomizedSearchCV(clf, parameters, scoring=scorer, n_iter = 3000, random_state = 42, n_jobs = 47)
     fit_obj = search_obj.fit(X, y)
     best_clf = fit_obj.best_estimator_
     return best_clf
@@ -77,6 +85,10 @@ def generate_clf_from_search(grid_or_random, clf, parameters, scorer, X, y):
 #START
 
 X_train, y_train, X_test, y_test = _Dataset()
+col_test = new_name_col
+col_train = new_name_col
+X_train.columns = new_name_col
+X_test.columns = new_name_col
 X_train = X_train[best_features] #SONO 15
 X_test =  X_test[best_features]
 
