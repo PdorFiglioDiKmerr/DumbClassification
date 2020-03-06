@@ -96,7 +96,7 @@ clf = RandomForestClassifier()
 param_grid = {'bootstrap': [True, False],\
     'criterion': ['entropy', 'gini'],\
     'max_depth': [10, 20, 50, 100, 200, None],\
-    'max_features': [5, 10, 15],\
+    'max_features': [3, 6, 9, None],\
     'min_samples_leaf': [50, 100, 200, 250, 300],\
     'min_samples_split': [10, 100, 300, 1000],\
     'n_estimators': [10, 50, 100, 150, 200],\

@@ -6,7 +6,7 @@ Created on Sat Feb  8 23:38:09 2020
 """
 import numpy as np
 import pandas as pd
-
+import os
 
 def build_dataset(df):
 
@@ -17,20 +17,21 @@ def build_dataset(df):
     except:
         return df.drop(["label", "label2"] , axis = 1),  y_o
 
+        os.path.join(Dataset,Train)
 def _Dataset():
-    dir_Train = r".\Dataset\Train"
-    dir_Test = r".\Dataset\Test"
+    dir_Train = os.path.join("Dataset","Train")
+    dir_Test = os.path.join("Dataset","Test")
     #TRAIN
-    df_HQ = pd.read_csv (dir_Train + r"\Train_HQ\dataset_HQ.csv", index_col = [0])
-    df_MQ = pd.read_csv (dir_Train + r"\Train_MQ\dataset_MQ.csv", index_col = [0])
-    df_LQ = pd.read_csv (dir_Train + r"\Train_LQ\dataset_LQ.csv", index_col = [0])
-    df_SS = pd.read_csv (dir_Train + r"\Train_SS\dataset_SS.csv", index_col = [0])
+    df_HQ = pd.read_csv (os.path.join(dir_Train, os.path.join("Train_HQ", "dataset_HQ.csv")), index_col = [0])
+    df_MQ = pd.read_csv (os.path.join(dir_Train, os.path.join("Train_MQ", "dataset_MQ.csv")), index_col = [0])
+    df_LQ = pd.read_csv (os.path.join(dir_Train, os.path.join("Train_LQ", "dataset_LQ.csv")), index_col = [0])
+    df_SS = pd.read_csv (os.path.join(dir_Train, os.path.join("Train_SS", "dataset_SS.csv")), index_col = [0])
     #TEST
-    df_HQ_test = pd.read_csv (dir_Test + r"\Test_HQ\dataset_HQ_test.csv", index_col = [0])
-    df_MQ_test = pd.read_csv (dir_Test + r"\Test_MQ\dataset_MQ_test.csv", index_col = [0])
-    df_LQ_test = pd.read_csv (dir_Test + r"\Test_LQ\dataset_LQ_test.csv", index_col = [0])
-    df_SS_test = pd.read_csv (dir_Test + r"\Test_SS\dataset_SS_test.csv", index_col = False)
-    df_AUD_test = pd.read_csv (dir_Test + r"\Test_AUD\dataset_AUD_test.csv", index_col = False)
+    df_HQ_test = pd.read_csv (os.path.join(dir_Test, os.path.join("Test_HQ", "dataset_HQ_test.csv")), index_col = [0])
+    df_MQ_test = pd.read_csv (os.path.join(dir_Test, os.path.join("Test_MQ", "dataset_MQ_test.csv")), index_col = [0])
+    df_LQ_test = pd.read_csv (os.path.join(dir_Test, os.path.join("Test_LQ", "dataset_LQ_test.csv")), index_col = [0])
+    df_SS_test = pd.read_csv (os.path.join(dir_Test, os.path.join("Test_SS", "dataset_SS_test.csv")), index_col = False)
+    df_AUD_test = pd.read_csv(os.path.join(dir_Test, os.path.join("Test_AUD", "dataset_AUD_test.csv")), index_col = False)
 
     df_train = pd.concat([df_HQ, df_MQ, df_LQ, df_SS], sort = False)
     shuffled_df = df_train.sample(frac=1,random_state=4)
@@ -46,7 +47,7 @@ def _Dataset():
     X_train = df_train.dropna()
 
     df_test = pd.concat([df_HQ_test, df_MQ_test, df_LQ_test, df_SS_test], sort = False)
-    
+
     shuffled_df = df_test.sample(frac=1,random_state=4)
     # Put all the fraud class in a separate dataset.
     fraud_df = shuffled_df.loc[shuffled_df['label'] != 0]

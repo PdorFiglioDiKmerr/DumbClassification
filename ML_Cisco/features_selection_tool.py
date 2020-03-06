@@ -28,8 +28,37 @@ from sklearn.feature_selection import SelectKBest, mutual_info_classif
 from sklearn.feature_selection import f_classif
 
 
-plt.ioff()
 
+def heatmap_my (X, y = None):
+
+    if y is not None:
+        X = pd.concat([X,y],axis = 1)
+    new_name = []
+    h = 1
+    for i in X.columns:
+        new_name.append(i+"({})".format(h))
+        h = h+1
+    plt.figure()
+    X.columns = new_name
+    corr = X.corr()
+    mask = np.zeros_like(corr, dtype=np.bool)
+    mask[np.triu_indices_from(mask)] = True
+    #mask[np.where (np.diag(mask) ),np.where (np.diag(mask) )] = False
+    cmap = sns.diverging_palette(220, 10, as_cmap=True)
+    # Draw the heatmap with the mask and correct aspect ratio
+    sns.heatmap(corr, mask=mask, cmap='magma', center=0, vmax=1, linewidths=1, cbar_kws={"shrink": 0.5}, xticklabels = range(1,12,1), \
+                yticklabels = X.columns, annot = True, fmt = ".1f")
+    #plt.xlabel("Features")
+    #plt.ylabel("Features")
+    plt.xticks(rotation=0)
+    b, t = plt.ylim() # discover the values for bottom and top
+    b += 0.5 # Add 0.5 to the bottom
+    t -= 0.5 # Subtract 0.5 from the top
+    plt.ylim(b, t) # update the ylim(bottom, top) values
+    plt.title("Heatmap correlation matrix")
+    plt.show() # ta-da!
+
+plt.ioff()
 def RF_with_Graph(X_train, y_train, X_test = None, y_test = None):
     from sklearn import metrics
     clf_ = RandomForestClassifier(n_estimators = 50, max_depth = 20, criterion="entropy",\
@@ -66,7 +95,7 @@ def RandomF_(X,y,X_test,y_test, title, save = False):
     y_class_predict = rm.predict(X_test)
     #FEATURE IMPORTANCE
     plt.figure(figsize = [32,18])
-    plt.title('Feature Importances ' + title) 
+    plt.title('Feature Importances ' + title)
     plt.barh(X.columns, rm.feature_importances_, color='#0092CB', align='center')
     plt.xlabel('Relative Importance')
     plt.grid()
@@ -80,7 +109,7 @@ def RandomF_(X,y,X_test,y_test, title, save = False):
 
 def Extra_ (X, y, save = False):
     from sklearn.ensemble import ExtraTreesClassifier
-    from sklearn.feature_selection import SelectFromModel 
+    from sklearn.feature_selection import SelectFromModel
     title = "tree_classifier"
     clf = ExtraTreesClassifier(n_estimators=100)
     clf = clf.fit(X, y)
@@ -124,18 +153,23 @@ new_name_col = ['interarr_std', 'interarr_mean', 'interarr_p25',
        'inter_time_seq_p25', 'inter_time_seq_p50',
        'inter_time_seq_p75', 'inter_time_seq_M_m_diff']
 
+best_features = ['interarr_p25', 'interarr_p50', 'interarr_p75', 'len_udp_std',
+       'len_udp_mean', 'num_packets', 'kbps', 'len_udp_p75',
+       'len_udp_M_m_diff', 'interlen_udp_M_m_diff', 'rtp_inter_time_mean']
+
 col_test = new_name_col
 col_train = new_name_col
 X_train.columns = new_name_col
 X_test.columns = new_name_col
+X_train = X_train[best_features]
 
-X_train = X_train.drop(['rtp_inter_time_n_zeros','inter_time_seq_std', 'inter_time_seq_mean',
-        'inter_time_seq_p25', 'inter_time_seq_p50',
-        'inter_time_seq_p75', 'inter_time_seq_M_m_diff'], axis = 1)
-
-X_test = X_test.drop(['rtp_inter_time_n_zeros','inter_time_seq_std', 'inter_time_seq_mean',
-        'inter_time_seq_p25', 'inter_time_seq_p50',
-        'inter_time_seq_p75', 'inter_time_seq_M_m_diff'], axis = 1)
+# X_train = X_train.drop(['rtp_inter_time_n_zeros','inter_time_seq_std', 'inter_time_seq_mean',
+#         'inter_time_seq_p25', 'inter_time_seq_p50',
+#         'inter_time_seq_p75', 'inter_time_seq_M_m_diff'], axis = 1)
+#
+# X_test = X_test.drop(['rtp_inter_time_n_zeros','inter_time_seq_std', 'inter_time_seq_mean',
+#         'inter_time_seq_p25', 'inter_time_seq_p50',
+#         'inter_time_seq_p75', 'inter_time_seq_M_m_diff'], axis = 1)
 new_name_col = X_train.columns
 col_test = new_name_col
 col_train = new_name_col
@@ -152,10 +186,10 @@ col_train = new_name_col
 #     # apply feature selection
 #     X_selected = fs.fit_transform(X_train, y_train["label"])
 #     print(X_selected.shape)
-    
+
 #     clf = GaussianNB()
 #     clf.fit(X_selected, y_train["label"])
-    
+
 #     X_test_selected = fs.transform(X_test)
 #     print(clf.score(X_test_selected, y_test["label"]))
 # y_predict = clf.predict(X_test)
@@ -216,7 +250,7 @@ X_test_select_s = X_test_s.loc[:, clf_.feature_importances_  > 0.05]
 
 RandomF_(X_train, y_train["label"], X_test, y_test["label"], "Complete Dataset", save = True) #complete dataset
 RandomF_(X_train_s, y_train["label"], X_test_s, y_test["label"], "Complete Dataset standardaize", save = True) #complete dataset rescale
-RandomF_(X_train_select, y_train["label"], X_test_select, y_test["label"], "Features selected", save = True) #features selection 
+RandomF_(X_train_select, y_train["label"], X_test_select, y_test["label"], "Features selected", save = True) #features selection
 RandomF_(X_train_select_s, y_train["label"], X_test_select_s, y_test["label"], "Features selected standardize", save = True) #features selection scale
 
 PCACisco.PCA_Plot_Variance(X_train_s)
@@ -224,7 +258,7 @@ PCACisco.PCA_Plot_Variance(X_train_s)
 from sklearn.decomposition import PCA
 
 # for i in [0.9, 0.95, 0.99]:
-    
+
 #     pca = PCA(n_components=i)
 #     X_train_s_pca = pca.fit_transform(X_train_s)
 #     X_test_s_pca = pca.transform(X_test_s)
@@ -233,5 +267,3 @@ from sklearn.decomposition import PCA
 #     X_test_s_pca = pd.DataFrame(X_test_s_pca)
 #     RandomF_(X_train_s_pca, y_train["label"], X_test_s_pca, y_test["label"],\
 #              "PCA n_components " + str(n_comp), save = True) #complete dataset
-    
-    
